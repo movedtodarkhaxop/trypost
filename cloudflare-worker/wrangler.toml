@@ -1,0 +1,13 @@
+name = "trypost-cron"
+main = "src/index.js"
+compatibility_date = "2026-08-18"
+
+# Fires every minute — drains the Laravel queue and runs the scheduler via
+# the /internal/cron/* endpoints (see routes/internal.php). Set the app's
+# own URL below; CRON_TOKEN is a secret, set separately with:
+#   wrangler secret put CRON_TOKEN
+[triggers]
+crons = ["*/1 * * * *"]
+
+[vars]
+TRYPOST_URL = "https://trypost-ocsf.onrender.com"

@@ -222,4 +222,22 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | External Cron
+    |--------------------------------------------------------------------------
+    |
+    | Deployments that can't run a persistent queue worker / scheduler process
+    | (e.g. memory-constrained free-tier hosting) drain the queue and run the
+    | scheduler via HTTP instead, triggered by an external cron (e.g. a
+    | Cloudflare Worker Cron Trigger) hitting routes/internal.php. Those routes
+    | 403 unless CRON_TOKEN is set and the request presents it as a Bearer
+    | token — leave CRON_TOKEN unset to keep them disabled entirely.
+    |
+    */
+
+    'cron' => [
+        'token' => env('CRON_TOKEN'),
+    ],
+
 ];
