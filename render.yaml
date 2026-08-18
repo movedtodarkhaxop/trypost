@@ -75,6 +75,10 @@ services:
         sync: false
       - key: PASSPORT_PUBLIC_KEY
         sync: false
+      - key: DISABLE_HORIZON
+        value: "true"
+      - key: DISABLE_SCHEDULER
+        value: "true"
       - key: VITE_APP_NAME
         value: TryPost
       - key: VITE_REVERB_APP_KEY
@@ -85,3 +89,145 @@ services:
         value: "443"
       - key: VITE_REVERB_SCHEME
         value: https
+
+  - type: worker
+    name: trypost-horizon
+    runtime: docker
+    dockerfilePath: docker/Dockerfile
+    dockerContext: .
+    dockerCommand: php artisan horizon
+    plan: free
+    region: oregon
+    branch: main
+    envVars:
+      - key: APP_NAME
+        value: TryPost
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: SELF_HOSTED
+        value: "true"
+      - key: APP_KEY
+        sync: false
+      - key: APP_URL
+        sync: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_DATABASE
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: BROADCAST_CONNECTION
+        value: reverb
+      - key: QUEUE_CONNECTION
+        value: redis
+      - key: CACHE_STORE
+        value: redis
+      - key: REDIS_URL
+        sync: false
+      - key: REVERB_APP_ID
+        value: "1001"
+      - key: REVERB_APP_KEY
+        sync: false
+      - key: REVERB_APP_SECRET
+        sync: false
+      - key: REVERB_HOST
+        sync: false
+      - key: REVERB_PORT
+        value: "443"
+      - key: REVERB_SCHEME
+        value: https
+      - key: FILESYSTEM_DISK
+        value: b2
+      - key: B2_KEY_ID
+        sync: false
+      - key: B2_APPLICATION_KEY
+        sync: false
+      - key: B2_ENDPOINT
+        sync: false
+      - key: B2_REGION
+        sync: false
+      - key: B2_BUCKET
+        sync: false
+      - key: PASSPORT_PRIVATE_KEY
+        sync: false
+      - key: PASSPORT_PUBLIC_KEY
+        sync: false
+
+  - type: worker
+    name: trypost-scheduler
+    runtime: docker
+    dockerfilePath: docker/Dockerfile
+    dockerContext: .
+    dockerCommand: php artisan schedule:work
+    plan: free
+    region: oregon
+    branch: main
+    envVars:
+      - key: APP_NAME
+        value: TryPost
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: SELF_HOSTED
+        value: "true"
+      - key: APP_KEY
+        sync: false
+      - key: APP_URL
+        sync: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_DATABASE
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: BROADCAST_CONNECTION
+        value: reverb
+      - key: QUEUE_CONNECTION
+        value: redis
+      - key: CACHE_STORE
+        value: redis
+      - key: REDIS_URL
+        sync: false
+      - key: REVERB_APP_ID
+        value: "1001"
+      - key: REVERB_APP_KEY
+        sync: false
+      - key: REVERB_APP_SECRET
+        sync: false
+      - key: REVERB_HOST
+        sync: false
+      - key: REVERB_PORT
+        value: "443"
+      - key: REVERB_SCHEME
+        value: https
+      - key: FILESYSTEM_DISK
+        value: b2
+      - key: B2_KEY_ID
+        sync: false
+      - key: B2_APPLICATION_KEY
+        sync: false
+      - key: B2_ENDPOINT
+        sync: false
+      - key: B2_REGION
+        sync: false
+      - key: B2_BUCKET
+        sync: false
+      - key: PASSPORT_PRIVATE_KEY
+        sync: false
+      - key: PASSPORT_PUBLIC_KEY
+        sync: false
