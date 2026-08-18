@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 
+// TikTok Developer Portal URL-prefix ownership verification (signature file).
+Route::get('/tiktokKRvJRgNOaIpTc0HvqHjXAkKdY7Yonx6K.txt', fn () => response(
+    "tiktok-developers-site-verification=KRvJRgNOaIpTc0HvqHjXAkKdY7Yonx6K\n",
+    200,
+    ['Content-Type' => 'text/plain'],
+))->name('legal.tiktok-verification');
+
 Route::view('/terms', 'legal.placeholder', [
     'title' => 'Terms of Service',
     'body' => '<p>By using this instance, you agree to use it responsibly and in accordance with the terms of any
