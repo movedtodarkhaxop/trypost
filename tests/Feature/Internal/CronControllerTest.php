@@ -44,3 +44,28 @@ test('schedule-run runs the scheduler with a valid token', function () {
         ->assertOk()
         ->assertJsonStructure(['exit_code', 'output']);
 });
+
+test('seed-admin creates the default admin user with a valid token', function () {
+    config(['trypost.cron.token' => 'secret-token']);
+
+    $this->postJson(route('internal.cron.seed-admin'), [], [
+        'Authorization' => 'Bearer secret-token',
+    ])
+        ->assertOk()
+        ->assertJsonStructure(['exit_code', 'output']);
+
+    $this->assertDatabaseHas('users', ['email' => 'admin@trypost.it']);
+});
+
+test('seed-admin does not duplicate an existing user', function () {
+    config(['trypost.cron.token' => 'secret-token']);
+
+    \App\Models\User::factory()->create(['email' => 'someone@example.com']);
+
+    $this->postJson(route('internal.cron.seed-admin'), [], [
+        'Authorization' => 'Bearer secret-token',
+    ])->assertOk();
+
+    $this->assertDatabaseMissing('users', ['email' => 'admin@trypost.it']);
+    $this->assertDatabaseCount('users', 1);
+});
