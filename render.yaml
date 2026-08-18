@@ -81,6 +81,10 @@ services:
         value: "true"
       - key: CRON_TOKEN
         sync: false
+      - key: X_CLIENT_ID
+        sync: false
+      - key: X_CLIENT_SECRET
+        sync: false
       - key: VITE_APP_NAME
         value: TryPost
       - key: VITE_REVERB_APP_KEY
