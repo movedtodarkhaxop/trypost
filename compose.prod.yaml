@@ -77,6 +77,14 @@ services:
       # AWS_DEFAULT_REGION: us-east-1
       # AWS_BUCKET: ""
       # AWS_URL: ""
+      #
+      # --- Backblaze B2: set FILESYSTEM_DISK=b2 and fill these ---
+      # B2_KEY_ID: ""
+      # B2_APPLICATION_KEY: ""
+      # B2_ENDPOINT: ""                  # e.g. https://s3.us-west-004.backblazeb2.com
+      # B2_REGION: ""                    # e.g. us-west-004
+      # B2_BUCKET: ""
+      # B2_URL: ""                       # public bucket URL (needed for media to display)
 
       # ===== Mail =====
       # Defaults to "log" (emails written to the container log). Configure SMTP

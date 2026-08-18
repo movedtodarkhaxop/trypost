@@ -65,6 +65,17 @@ test('media deletes file from storage when deleted', function () {
     Storage::assertMissing($path);
 });
 
+test('media url attribute is a temporary url when disk driver is s3', function () {
+    Storage::fake('s3');
+    config(['filesystems.default' => 's3']);
+
+    $workspace = Workspace::factory()->create();
+    $file = UploadedFile::fake()->image('logo.jpg', 100, 100);
+    $media = $workspace->addMedia($file, 'logo');
+
+    expect($media->url)->toBeString()->not->toBeEmpty();
+});
+
 test('media can get temporary url', function () {
     // Use a driver that supports temporary URLs
     Storage::fake('s3');

@@ -55,8 +55,15 @@ class Media extends Model
     protected function url(): Attribute
     {
         return Attribute::make(
-            get: fn () => Storage::url($this->path),
+            get: fn () => $this->isServedFromS3Driver()
+                ? $this->getTemporaryUrl()
+                : Storage::url($this->path),
         );
+    }
+
+    private function isServedFromS3Driver(): bool
+    {
+        return config('filesystems.disks.'.config('filesystems.default').'.driver') === 's3';
     }
 
     public function isVideo(): bool
