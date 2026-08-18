@@ -57,6 +57,8 @@ services:
         value: "443"
       - key: REVERB_SCHEME
         value: https
+      - key: REVERB_SERVER_HOST
+        value: "127.0.0.1"
       - key: FILESYSTEM_DISK
         value: b2
       - key: B2_KEY_ID
